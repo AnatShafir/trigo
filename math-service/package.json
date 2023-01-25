@@ -12,6 +12,7 @@
   "author": "Anat Shafir",
   "license": "ISC",
   "dependencies": {
+    "avj": "^0.0.0",
     "message-service-interface": "file:../message-service-interface",
     "pino": "^8.8.0",
     "pino-pretty": "^9.1.1"

@@ -1,23 +1,29 @@
 const logger = require('./utils/logger');
 const validateMessage = require('./utils/validate-message');
 
-const handleValidationError = (messageInfo, respond) => {
-  const { errors } = validateMessage.errors;
+const handleValidationErrors = (errors, messageInfo, respond) => {
   logger.error('Message is invalid', { ...messageInfo, errors });
-  if (respond) respond({ errors });
+  if (respond) {
+    const response = {
+      payload: { errors },
+      ...(messageInfo?.reqId) && { reqId: messageInfo.reqId },
+    };
+    respond(response);
+  }
 };
 
 const createMathHandler = (calcResult) => (message) => {
   const messageInfo = {
-    subject: message?.subject,
-    reqId: message?.decodedData?.reqId,
-    payload: message?.decodedData?.payload,
+    ...(message?.subject) && { subject: message.subject },
+    ...(message?.decodedData?.reqId) && { reqId: message.decodedData.reqId },
+    ...(message?.decodedData?.payload) && { payload: message.decodedData.payload },
   };
 
   logger.info('Received new message', messageInfo);
 
-  if (!validateMessage(message)) {
-    handleValidationError(messageInfo, message.encodeRespond);
+  const validationErrors = validateMessage(message);
+  if (validationErrors.length > 0) {
+    handleValidationErrors(validationErrors, messageInfo, message.encodeRespond);
     return;
   }
 
