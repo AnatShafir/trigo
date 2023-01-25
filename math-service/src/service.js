@@ -6,14 +6,14 @@ const subscribe = require('./subscribe');
 
 const shutDown = async (signal) => {
   try {
-    if (signal) logger.info(`Received signal to terminate: ${signal}`);
+    if (signal) logger.info('Received signal to terminate', { signal });
 
     setTimeout(() => {
       logger.error('Could not close connections in time, forcefully shutting down');
       process.exit(1);
     }, 10000);
 
-    if (msInterface.connection) {
+    if (msInterface.isConnected()) {
       logger.info('Closing connection to message service...');
       await msInterface.close();
       logger.info('Message service connection closed successfully');
@@ -29,7 +29,7 @@ const shutDown = async (signal) => {
 
 const start = async () => {
   try {
-    logger.info(`Connecting to message service: ${msOptions.servers}`);
+    logger.info('Connecting to message service', { server: msOptions.servers });
     await msInterface.connect(msOptions);
     logger.info('Message service connected successfully');
 
