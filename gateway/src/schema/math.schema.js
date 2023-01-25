@@ -2,6 +2,7 @@ const postSchema = {
   body: {
     type: 'object',
     required: ['firstNumber', 'secondNumber'],
+    additionalProperties: false,
     properties: {
       firstNumber: { type: 'number' },
       secondNumber: { type: 'number' },
@@ -9,7 +10,10 @@ const postSchema = {
   },
   response: {
     200: {
-      type: 'number',
+      type: 'object',
+      properties: {
+        result: { type: 'number' },
+      },
     },
   },
 };
