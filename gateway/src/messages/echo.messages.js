@@ -7,7 +7,7 @@ const echoMessage = async (message, reqId) => {
   const payload = { message };
   const data = { payload, reqId };
   const response = await msInterface.messageRequest(subject, data);
-  return response?.decodedData?.payload;
+  return response;
 };
 
 module.exports = { echoMessage };

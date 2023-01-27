@@ -7,7 +7,7 @@ const mathMessage = (operationName) => async (firstNumber, secondNumber, reqId) 
   const payload = { firstNumber, secondNumber };
   const data = { payload, reqId };
   const response = await msInterface.messageRequest(subject, data);
-  return response?.decodedData?.payload;
+  return response;
 };
 
 const subtractMessage = mathMessage('subtract');
