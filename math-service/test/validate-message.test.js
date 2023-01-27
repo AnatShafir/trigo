@@ -20,19 +20,21 @@ describe('validate messages', () => {
     };
 
     const validationErrors = validateMessage(messageObject);
-    expect(validationErrors[0].message).toEqual(expectedError);
+    expect(validationErrors[0]).toEqual(expectedError);
   });
 
   it('Should return an error when message\'s decodedData isn\'t valid', async () => {
-    const expectedError = 'should have required property \'reqId\'';
+    const invalidData = { ...messageData };
+    delete invalidData.payload;
+    const expectedError = 'must have required property \'payload\'';
     const messageObject = {
       subject,
-      decodedData: {},
+      decodedData: invalidData,
       encodeRespond: () => {},
     };
 
     const validationErrors = validateMessage(messageObject);
-    expect(validationErrors[0].message).toEqual(expectedError);
+    expect(validationErrors[0]).toEqual(expectedError);
   });
 
   it('Should return an error when message\'s decodedData isn\'t valid', async () => {
@@ -43,6 +45,6 @@ describe('validate messages', () => {
     };
 
     const validationErrors = validateMessage(messageObject);
-    expect(validationErrors[0].message).toEqual(expectedError);
+    expect(validationErrors[0]).toEqual(expectedError);
   });
 });
