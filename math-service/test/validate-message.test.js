@@ -37,7 +37,7 @@ describe('validate messages', () => {
     expect(validationErrors[0]).toEqual(expectedError);
   });
 
-  it('Should return an error when message\'s decodedData isn\'t valid', async () => {
+  it('Should return an error when a message is missing encodeRespond property', async () => {
     const expectedError = 'Message should have encodeRespond property';
     const messageObject = {
       subject,
