@@ -1,0 +1,27 @@
+{
+  "name": "echo-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node src/index.js | pino-pretty",
+    "dev": "node --watch src/index.js | pino-pretty",
+    "lint": "eslint . --fix"
+  },
+  "author": "Anat Shafir",
+  "license": "ISC",
+  "dependencies": {
+    "ajv": "^8.12.0",
+    "message-service-interface": "file:../message-service-interface",
+    "pino": "^8.8.0",
+    "pino-pretty": "^9.1.1"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.3",
+    "eslint": "^8.32.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "jest": "^29.4.1"
+  }
+}
