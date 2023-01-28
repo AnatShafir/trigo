@@ -1,9 +1,9 @@
 /* eslint-disable global-require */
 const msInterface = require('message-service-interface');
 
-const { messageData, subtractData: { subject } } = require('./test-data');
-const { msOptions } = require('./test-config');
-const handlers = require('../src/handler');
+const { messageData, subtractData: { subject } } = require('../test-data');
+const { msOptions } = require('../../src/config');
+const handlers = require('../../src/handler');
 
 const mockHandlers = () => {
   const mockExpectedResponse = { good: 'right handler' };
@@ -24,7 +24,7 @@ describe('subscribe', () => {
 
   it('Should subscribe to math messages and call the relevant handlers', async () => {
     const mockExpectedResponse = mockHandlers();
-    const subscribe = require('../src/subscribe');
+    const subscribe = require('../../src/subscribe');
 
     subscribe();
 
