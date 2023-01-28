@@ -12,7 +12,7 @@ module.exports = async (subject, data) => {
     if (response.data.length) response.decodedData = jc.decode(response.data);
     return response;
   } catch (error) {
-    if (error.code === '503') error.message = `This request has no responders: ${error.message}`;
+    if (error.code === '503') throw new Error('No responders', { cause: error });
     throw error;
   }
 };

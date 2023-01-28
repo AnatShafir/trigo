@@ -1,8 +1,9 @@
-const subject = 'hello.world';
 const payload = { hello: 'world' };
 const reqId = '1234';
 const data = { payload, reqId };
 
+const getSubject = () => Math.random().toString(16);
+
 module.exports = {
-  subject, payload, reqId, data,
+  payload, reqId, data, getSubject,
 };

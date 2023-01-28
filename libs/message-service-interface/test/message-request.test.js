@@ -4,11 +4,13 @@ const messageRequest = require('../src/message-request');
 const { getConnection } = require('../src/connection');
 const msInterface = require('../src/index');
 const { msOptions } = require('./test-config');
-const { subject, data } = require('./test-data');
+const { getSubject, data } = require('./test-data');
 
+const subject = getSubject();
 const jc = JSONCodec();
+let subscription;
 
-const consumeMessages = async (subscription, handleMessage) => {
+const consumeMessages = async (handleMessage) => {
   for await (const message of subscription) {
     handleMessage(message);
   }
@@ -17,10 +19,15 @@ const consumeMessages = async (subscription, handleMessage) => {
 describe('messageRequest', () => {
   beforeAll(async () => await msInterface.connect(msOptions));
 
+  afterEach(async () => {
+    await subscription?.drain();
+    subscription = null;
+  });
+
   afterAll(async () => await msInterface.close());
 
   it('Should send a request message', async () => {
-    const subscription = getConnection().subscribe(subject);
+    subscription = getConnection().subscribe(subject);
 
     const validateAndRespond = (message) => {
       expect(message.subject).toBe(subject);
@@ -28,13 +35,20 @@ describe('messageRequest', () => {
       message.respond();
     };
 
-    consumeMessages(subscription, validateAndRespond);
+    consumeMessages(validateAndRespond);
     await messageRequest(subject, data);
-    await subscription.drain();
+  });
+
+  it('Should send a request message and get response with decoded data', async () => {
+    subscription = getConnection().subscribe(subject);
+    consumeMessages((message) => message.respond(message.data));
+
+    const response = await messageRequest(subject, data);
+    expect(response.decodedData).toStrictEqual(data);
   });
 
   it('Should throw an error when the request message\'s subject has no responders', async () => {
     await expect(messageRequest(subject, data))
-      .rejects.toThrow('This request has no responders');
+      .rejects.toThrow('No responders');
   });
 });
