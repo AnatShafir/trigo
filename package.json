@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "npm run test --workspaces"
+    "test": "npm run test --workspaces",
+    "compose-up": "docker compose up -d --build --remove-orphans",
+    "compose-down": "docker compose down"
   },
   "repository": {
     "type": "git",

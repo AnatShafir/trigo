@@ -1,0 +1,44 @@
+version: '3.9'
+
+services:
+  math-service:
+    image: math-service
+    environment:
+      - NATS_URL=$NATS_URL
+    build:
+      args:
+        - workspace=apps/math-service
+    depends_on: 
+    - 'nats'
+  
+  echo-service:
+    image: echo-service
+    environment:
+      - NATS_URL=$NATS_URL
+    build:
+      args:
+        - workspace=apps/echo-service
+    depends_on: 
+    - 'nats'
+  
+  gateway:
+    image: gateway
+    environment:
+      - NATS_URL=$NATS_URL
+      - PORT=80
+    build:
+      args:
+        - workspace=apps/gateway
+    ports:
+      - 80:80
+    depends_on: 
+    - 'nats'
+    - 'echo-service'
+    - 'math-service'
+
+  nats:
+    image: nats
+    expose:
+      - '4222'
+    ports:
+      - '4222:4222'
