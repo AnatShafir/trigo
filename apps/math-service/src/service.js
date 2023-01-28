@@ -4,10 +4,8 @@ const logger = require('./utils/logger');
 const { msOptions } = require('./config');
 const subscribe = require('./subscribe');
 
-const shutDown = async (signal) => {
+const shutDown = async () => {
   try {
-    if (signal) logger.info('Received signal to terminate', { signal });
-
     setTimeout(() => {
       logger.error('Could not close connections in time, forcefully shutting down');
       process.exit(1);
@@ -22,23 +20,29 @@ const shutDown = async (signal) => {
     logger.info('Service shut down successfully');
     process.exit(0);
   } catch (error) {
-    logger.error(error);
+    logger.error('Failed to shut down, forcefully shutting down', { error });
     process.exit(1);
   }
 };
 
-const start = async () => {
-  try {
-    logger.info('Connecting to message service', { server: msOptions.servers });
-    await msInterface.connect(msOptions);
-    logger.info('Message service connected successfully');
-
-    subscribe();
-    logger.info('Subscribed to message service successfully');
-  } catch (error) {
-    logger.error(error);
-    shutDown();
-  }
+const handleSignal = (signal) => {
+  logger.info('Received signal to terminate', { signal });
+  shutDown();
 };
 
-module.exports = { start, shutDown };
+const handleFatalError = (error) => {
+  logger.fatal('Fatal error, shutting down', { error });
+  shutDown();
+};
+
+const start = async () => {
+  logger.info('Connecting to message service', { server: msOptions.servers });
+  const connectionEmitter = await msInterface.connect(msOptions);
+  logger.info('Message service connected successfully');
+  connectionEmitter.on('error', handleFatalError);
+
+  subscribe();
+  logger.info('Subscribed to message service successfully');
+};
+
+module.exports = { start, handleSignal, handleFatalError };
