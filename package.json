@@ -1,0 +1,20 @@
+{
+  "name": "trigo",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "npm run test --workspaces"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnatShafir/trigo.git"
+  },
+  "author": "Anat Shafir",
+  "license": "ISC",
+  "workspaces": [
+    "libs/*",
+    "apps/math-service",
+    "apps/echo-service",
+    "apps/gateway"
+  ]
+}
