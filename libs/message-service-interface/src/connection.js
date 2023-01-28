@@ -1,26 +1,22 @@
-const { connect: msConnect } = require('nats');
+const { connect: natsConnect } = require('nats');
+const EventEmitter = require('events');
 
 let connection;
-let closedConnectionPromise;
-
-const onClosedConnection = async () => {
-  const error = await connection.closed();
-  connection = null;
-  if (error) {
-    error.message = `Message service connection closed with error: ${error.message}`;
-    throw error;
-  }
-};
 
 const connect = async (options) => {
-  connection = await msConnect(options);
-  closedConnectionPromise = onClosedConnection();
+  connection = await natsConnect(options);
+  const connectionEmitter = new EventEmitter();
+  connection.closed().then((error) => {
+    connection = null;
+    if (error) {
+      const onCloseError = new Error('Connection closed with error', { cause: error });
+      connectionEmitter.emit('error', onCloseError);
+    }
+  });
+  return connectionEmitter;
 };
 
-const close = async () => {
-  await connection.drain();
-  await closedConnectionPromise;
-};
+const close = async () => await connection?.drain();
 
 const isConnected = () => (!!connection);
 
