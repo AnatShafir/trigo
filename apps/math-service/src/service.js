@@ -5,12 +5,12 @@ const { msOptions } = require('./config');
 const subscribe = require('./subscribe');
 
 const shutDown = async () => {
-  try {
-    setTimeout(() => {
-      logger.error('Could not close connections in time, forcefully shutting down');
-      process.exit(1);
-    }, 10000);
+  const shutDownTimeout = setTimeout(() => {
+    logger.error('Failed to shut down, forcefully shutting down');
+    process.exit(1);
+  }, 10000);
 
+  try {
     if (msInterface.isConnected()) {
       logger.info('Closing connection to message service...');
       await msInterface.close();
@@ -18,21 +18,23 @@ const shutDown = async () => {
     }
 
     logger.info('Service shut down successfully');
+    clearTimeout(shutDownTimeout);
     process.exit(0);
   } catch (error) {
     logger.error('Failed to shut down, forcefully shutting down', { error });
+    clearTimeout(shutDownTimeout);
     process.exit(1);
   }
 };
 
-const handleSignal = (signal) => {
+const handleSignal = async (signal) => {
   logger.info('Received signal to terminate', { signal });
-  shutDown();
+  await shutDown();
 };
 
-const handleFatalError = (error) => {
+const handleFatalError = async (error) => {
   logger.fatal('Fatal error, shutting down', { error });
-  shutDown();
+  await shutDown();
 };
 
 const start = async () => {

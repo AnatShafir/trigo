@@ -2,8 +2,10 @@ const payload = { firstNumber: 3, secondNumber: 1 };
 const reqId = '1234';
 const messageData = { payload, reqId };
 
+const getSubject = (prefix) => `${prefix}${Math.random().toString(16)}`;
+
 const divideData = {
-  subject: `math.divide.${payload.firstNumber}.${payload.secondNumber}`,
+  subject: getSubject('math.divide.'),
   expectedResponse: {
     decodedData: {
       reqId,
@@ -15,7 +17,7 @@ const divideData = {
 };
 
 const subtractData = {
-  subject: `math.subtract.${payload.firstNumber}.${payload.secondNumber}`,
+  subject: getSubject('math.subtract.'),
   expectedResponse: {
     decodedData: {
       reqId,
@@ -26,4 +28,6 @@ const subtractData = {
   },
 };
 
-module.exports = { messageData, divideData, subtractData };
+module.exports = {
+  getSubject, messageData, divideData, subtractData,
+};

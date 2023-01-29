@@ -1,5 +1,5 @@
-const validateMessage = require('../src/utils/validate-message');
-const { messageData, subtractData: { subject } } = require('./test-data');
+const validateMessage = require('../../src/utils/validate-message');
+const { messageData, subtractData: { subject } } = require('../test-data');
 
 describe('validate messages', () => {
   it('Should validate a valid message', async () => {

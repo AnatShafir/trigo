@@ -1,4 +1,5 @@
 const logger = require('./utils/logger');
+const { divide, subtract } = require('./calculate');
 const validateMessage = require('./utils/validate-message');
 
 const handleValidationErrors = (errors, messageInfo, respond) => {
@@ -37,10 +38,8 @@ const createMathHandler = (calcResult) => (message) => {
   logger.info('Responded to message', { messageInfo, response });
 };
 
-const calcDivideResult = (firstNumber, secondNumber) => firstNumber / secondNumber;
-const divideHandler = createMathHandler(calcDivideResult);
+const divideHandler = createMathHandler(divide);
 
-const calcSubtractResult = (firstNumber, secondNumber) => firstNumber - secondNumber;
-const subtractHandler = createMathHandler(calcSubtractResult);
+const subtractHandler = createMathHandler(subtract);
 
 module.exports = { divideHandler, subtractHandler };

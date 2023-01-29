@@ -14,9 +14,9 @@ const flipParamsHook = {
 };
 
 const logger = pino({
-  level: logLevel,
   timestamp: pino.stdTimeFunctions.isoTime,
   hooks: flipParamsHook,
+  ...(logLevel) && { level: logLevel },
 });
 
 module.exports = logger;
