@@ -47,7 +47,7 @@ const start = async () => {
   app.log.info('Message service connected successfully');
   connectionEmitter.on('error', handleFatalError);
 
-  await app.listen({ port });
+  await app.listen({ port, host: '0.0.0.0' });
 };
 
 module.exports = { start, handleSignal, handleFatalError };
