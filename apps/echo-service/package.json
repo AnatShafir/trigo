@@ -4,15 +4,21 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --verbose",
+    "test-unit": "npm test -- test/unit",
+    "test-integration": "npm test -- test/integration",
     "start": "node src/index.js | pino-pretty",
     "dev": "node --watch src/index.js | pino-pretty",
+    "test-coverage": "npm test -- --coverage",
+    "test-compose-up": "docker compose -f docker-compose.test.yml up -d",
+    "test-compose-down": "docker compose -f docker-compose.test.yml down",
     "lint": "eslint . --fix"
   },
   "author": "Anat Shafir",
   "license": "ISC",
   "dependencies": {
     "ajv": "^8.12.0",
+    "message-service-interface": "^1.0.0",
     "pino": "^8.8.0",
     "pino-pretty": "^9.1.1"
   },
