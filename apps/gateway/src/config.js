@@ -1,7 +1,9 @@
 module.exports = {
-  logLevel: process.env.LOG_LEVEL || 'info',
-  port: process.env.PORT || 80,
+  loggerOptions: {
+    ...(process.env.LOG_LEVEL) && { level: process.env.LOG_LEVEL },
+  },
+  port: process.env.PORT,
   msOptions: {
-    servers: process.env.NATS_URL,
+    servers: process.env.NATS_SERVER,
   },
 };

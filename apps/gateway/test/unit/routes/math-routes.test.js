@@ -1,6 +1,6 @@
 /* eslint-disable global-require */
-const messages = require('../../src/messages/math.messages');
-const { createMessageResponse, divideData, subtractData } = require('../test-data');
+const messages = require('../../../src/messages/math.messages');
+const { createMessageResponse, divideData, subtractData } = require('../../test-data');
 
 const routes = [
   {
@@ -17,7 +17,7 @@ const routes = [
   },
 ];
 
-const app = require('../../src/app');
+const app = require('../../../src/app');
 
 describe('math routes', () => {
   afterAll(() => jest.restoreAllMocks());

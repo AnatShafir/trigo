@@ -1,9 +1,9 @@
 /* eslint-disable global-require */
-const messages = require('../../src/messages/echo.messages');
-const { createMessageResponse, echoData } = require('../test-data');
+const messages = require('../../../src/messages/echo.messages');
+const { createMessageResponse, echoData } = require('../../test-data');
 
 const mockMessage = jest.spyOn(messages, 'echoMessage');
-const app = require('../../src/app');
+const app = require('../../../src/app');
 
 const { messageResponse, expectedMessageData } = echoData;
 const request = {
