@@ -4,9 +4,7 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "test": "jest --verbose",
-    "test-unit": "npm test -- test/unit",
-    "test-integration": "npm test -- test/integration",
+    "test": "jest --verbose --runInBand",
     "start": "node src/index.js | pino-pretty",
     "dev": "node --watch src/index.js | pino-pretty",
     "test-coverage": "npm test -- --coverage",
