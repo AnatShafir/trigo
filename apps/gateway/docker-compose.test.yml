@@ -1,0 +1,23 @@
+version: '3.9'
+
+services:
+  math-service-test:
+    image: math-service
+    environment:
+      - NATS_SERVER=nats-test:4222
+    depends_on: 
+    - 'nats-test'
+  
+  echo-service-test:
+    image: echo-service
+    environment:
+      - NATS_SERVER=nats-test:4222
+    depends_on: 
+    - 'nats-test'
+  
+  nats-test:
+    image: nats
+    expose:
+      - '4333'
+    ports:
+      - '4333:4222'
