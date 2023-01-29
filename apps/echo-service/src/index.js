@@ -1,8 +1,8 @@
-const { start, shutDown } = require('./service');
+const { start, handleSignal, handleFatalError } = require('./service');
 
-process.once('SIGTERM', shutDown);
-process.once('SIGINT', shutDown);
-process.once('uncaughtException', shutDown);
-process.once('unhandledRejection', shutDown);
+process.once('SIGTERM', handleSignal);
+process.once('SIGINT', handleSignal);
+process.once('uncaughtException', handleFatalError);
+process.once('unhandledRejection', handleFatalError);
 
-start();
+start().catch(handleFatalError);

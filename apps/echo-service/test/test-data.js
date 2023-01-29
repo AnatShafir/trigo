@@ -5,4 +5,8 @@ const messageData = { payload, reqId };
 const subject = `echo.${payload.message}`;
 const expectedResponse = { decodedData: messageData };
 
-module.exports = { messageData, subject, expectedResponse };
+const getSubject = () => `echo.${Math.round(Math.random() * 10000).toString(16)}`;
+
+module.exports = {
+  getSubject, messageData, subject, expectedResponse,
+};
