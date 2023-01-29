@@ -4,7 +4,7 @@ services:
   math-service:
     image: math-service
     environment:
-      - NATS_URL=$NATS_URL
+      - NATS_SERVER=$NATS_SERVER
     build:
       args:
         - workspace=apps/math-service
@@ -14,7 +14,7 @@ services:
   echo-service:
     image: echo-service
     environment:
-      - NATS_URL=$NATS_URL
+      - NATS_SERVER=$NATS_SERVER
     build:
       args:
         - workspace=apps/echo-service
@@ -24,13 +24,15 @@ services:
   gateway:
     image: gateway
     environment:
-      - NATS_URL=$NATS_URL
+      - NATS_SERVER=$NATS_SERVER
       - PORT=80
     build:
       args:
         - workspace=apps/gateway
+    expose:
+      - '80'
     ports:
-      - 80:80
+      - '80:80'
     depends_on: 
     - 'nats'
     - 'echo-service'
@@ -40,5 +42,7 @@ services:
     image: nats
     expose:
       - '4222'
+      - '8222'
     ports:
       - '4222:4222'
+      - '8222:8222'
