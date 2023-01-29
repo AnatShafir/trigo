@@ -1,0 +1,9 @@
+version: '3.9'
+
+services:
+  nats-test:
+    image: nats
+    expose:
+      - '4666'
+    ports:
+      - '4666:4222'

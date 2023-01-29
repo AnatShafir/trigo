@@ -1,0 +1,9 @@
+*
+
+!package*.json
+
+!libs/*/src
+!libs/*/package*.json
+
+!apps/*/src
+!apps/*/package*.json

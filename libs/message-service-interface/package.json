@@ -1,0 +1,24 @@
+{
+  "name": "message-service-interface",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest --verbose --runInBand",
+    "test-coverage": "npm test -- --coverage",
+    "test-compose-up": "docker compose -f docker-compose.test.yml up -d",
+    "test-compose-down": "docker compose -f docker-compose.test.yml down",
+    "lint": "eslint . --fix"
+  },
+  "author": "Anat Shafir",
+  "license": "ISC",
+  "dependencies": {
+    "nats": "^2.11.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.32.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "jest": "^29.3.1"
+  }
+}
