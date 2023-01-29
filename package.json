@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "start": "npm run build && npm run compose-up",
     "test": "npm run test -ws --if-present",
     "test-compose-up": "npm run test-compose-up -ws --if-present",
     "test-coverage": "npm run test-coverage -ws --if-present",
