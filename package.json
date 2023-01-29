@@ -5,6 +5,7 @@
   "scripts": {
     "test": "npm run test -ws --if-present",
     "test-compose-up": "npm run test-compose-up -ws --if-present",
+    "test-coverage": "npm run test-coverage -ws --if-present",
     "build": "docker compose build",
     "compose-up": "docker compose up -d --remove-orphans",
     "compose-down": "docker compose down"
