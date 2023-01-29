@@ -4,9 +4,8 @@ const messageRequest = require('../src/message-request');
 const { getConnection } = require('../src/connection');
 const msInterface = require('../src/index');
 const { msOptions } = require('./test-config');
-const { getSubject, data } = require('./test-data');
+const { subject, data } = require('./test-data');
 
-const subject = getSubject();
 const jc = JSONCodec();
 let subscription;
 

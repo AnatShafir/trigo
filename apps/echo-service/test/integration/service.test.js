@@ -1,12 +1,10 @@
 const msInterface = require('message-service-interface');
 
 const { msOptions } = require('../../src/config');
-const { messageData, expectedResponse, getSubject } = require('../test-data');
+const { messageData, expectedResponse, subject } = require('../test-data');
 
 jest.spyOn(process, 'exit').mockImplementation(() => {});
 const { start, handleFatalError } = require('../../src/service');
-
-const subject = getSubject();
 
 describe('service - integration', () => {
   afterAll(() => jest.restoreAllMocks());

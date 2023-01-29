@@ -1,10 +1,9 @@
 const msInterface = require('message-service-interface');
 
-const { messageData, getSubject } = require('../test-data');
+const { messageData, subtractData: { subject } } = require('../test-data');
 const { msOptions } = require('../../src/config');
 const handlers = require('../../src/handler');
 
-const subject = getSubject('math.subtract.');
 const mockExpectedResponse = { handler: 'expected' };
 const mockSubtractHandler = (message) => message.encodeRespond(mockExpectedResponse);
 jest.spyOn(handlers, 'subtractHandler').mockImplementation(mockSubtractHandler);

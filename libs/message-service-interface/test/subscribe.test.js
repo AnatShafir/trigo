@@ -3,9 +3,8 @@ const { JSONCodec, StringCodec } = require('nats');
 const subscribe = require('../src/subscribe');
 const { connect, close, getConnection } = require('../src/connection');
 const { msOptions } = require('./test-config');
-const { getSubject, data } = require('./test-data');
+const { subject, data } = require('./test-data');
 
-const subject = getSubject();
 const jc = JSONCodec();
 let subscription;
 let connection;
