@@ -4,6 +4,6 @@ services:
   nats-test:
     image: nats
     expose:
-      - '4333'
+      - '4555'
     ports:
-      - '4333:4222'
+      - '4555:4222'

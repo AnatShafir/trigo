@@ -18,6 +18,6 @@ services:
   nats-test:
     image: nats
     expose:
-      - '4333'
+      - '4444'
     ports:
-      - '4333:4222'
+      - '4444:4222'
